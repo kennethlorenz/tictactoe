@@ -1,22 +1,20 @@
 function Gameboard() {
-  const rows = 3;
-  const columns = 3;
-  const board = [];
-  for (let i = 0; i < rows; i++) {
-    board[i] = [];
-    for (let j = 0; j < columns; j++) {
-      board[i].push(Cell());
-    }
-  }
-  let rep = 0;
-  const getBoard = () => board;
-  const getRep = () => rep;
+  const board = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ];
 
-  const updateGameBoard = (mainArrayPosition, innerArrayPosition, letter) => {
-    board[mainArrayPosition][innerArrayPosition] = letter;
+  const getBoard = () => board;
+
+  const updateGameBoard = (selectedCell, letter) => {
+    let outerArr = board.findIndex((row) => row.includes(selectedCell));
+    let innerArr = board[outerArr].findIndex((item) => item == selectedCell);
+    board[outerArr][innerArr] = letter;
+    return board;
   };
 
-  return { updateGameBoard, getBoard };
+  return { updateGameBoard, getBoard, board };
 }
 
 function Cell() {
