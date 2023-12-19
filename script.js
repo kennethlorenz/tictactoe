@@ -9,6 +9,10 @@ function Gameboard() {
 
   const updateGameBoard = (selectedCell, letter) => {
     let outerArr = board.findIndex((row) => row.includes(selectedCell));
+    if (outerArr == -1) {
+      return board;
+    }
+
     let innerArr = board[outerArr].findIndex((item) => item == selectedCell);
     board[outerArr][innerArr] = letter;
     return board;
