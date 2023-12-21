@@ -11,6 +11,15 @@ function Gameboard() {
   }
 
   const getBoard = () => board;
+
+  const isCellValid = (row, column) => {
+    if (row > 2 || column > 2) {
+      return false;
+    }
+
+    return true;
+  };
+
   const updateGameBoard = (row, column, player) => {
     if (
       board[row][column].getValue() == "X" ||
@@ -29,7 +38,7 @@ function Gameboard() {
     console.log(boardWithCellValues);
   };
 
-  return { getBoard, updateGameBoard, printBoard };
+  return { getBoard, updateGameBoard, printBoard, isCellValid };
 }
 
 function Cell() {
@@ -80,6 +89,11 @@ function GameController(
   };
 
   const playRound = (row, column) => {
+    if (board.isCellValid(row, column) == false) {
+      console.log("Invalid input, please try again");
+      printNewRound();
+      return;
+    }
     // Drop a token for the current player
     console.log(
       `Dropping ${
