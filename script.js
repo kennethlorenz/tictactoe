@@ -20,13 +20,15 @@ function Gameboard() {
     return true;
   };
 
-  const updateGameBoard = (row, column, player) => {
-    if (
-      board[row][column].getValue() == "X" ||
-      board[row][column].getValue() == "Y"
-    ) {
-      return;
+  const isCellEmpty = (row, column) => {
+    if (board[row][column].getValue() == 0) {
+      return true;
     }
+
+    return false;
+  };
+
+  const updateGameBoard = (row, column, player) => {
     board[row][column].addToken(player);
     return board;
   };
@@ -38,7 +40,7 @@ function Gameboard() {
     console.log(boardWithCellValues);
   };
 
-  return { getBoard, updateGameBoard, printBoard, isCellValid };
+  return { getBoard, updateGameBoard, printBoard, isCellValid, isCellEmpty };
 }
 
 function Cell() {
@@ -91,6 +93,12 @@ function GameController(
   const playRound = (row, column) => {
     if (board.isCellValid(row, column) == false) {
       console.log("Invalid input, please try again");
+      printNewRound();
+      return;
+    }
+
+    if (board.isCellEmpty(row, column) == false) {
+      console.log("Cell already filled, please select another cell");
       printNewRound();
       return;
     }
