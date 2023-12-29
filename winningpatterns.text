@@ -1,0 +1,67 @@
+//first row X
+g.playRound(0,0);
+g.playRound(1,0);
+g.playRound(0,1);
+g.playRound(1,1);
+g.playRound(0,2);
+
+//second row X
+
+g.playRound(1,0);
+g.playRound(0,0);
+g.playRound(1,1);
+g.playRound(0,1);
+g.playRound(1,2);
+
+//third row X
+g.playRound(2,0);
+g.playRound(0,0);
+g.playRound(2,1);
+g.playRound(0,1);
+g.playRound(2,2);
+
+//first column X
+g.playRound(0,0);
+g.playRound(0,1);
+g.playRound(1,0);
+g.playRound(1,1);
+g.playRound(2,0);
+
+//second column X
+g.playRound(0,1);
+g.playRound(0,2);
+g.playRound(1,1);
+g.playRound(1,0);
+g.playRound(2,1);
+
+//third column X
+g.playRound(0,2);
+g.playRound(0,0);
+g.playRound(1,2);
+g.playRound(1,0);
+g.playRound(2,2);
+
+diagonal left to right X
+g.playRound(0,0);
+g.playRound(0,1);
+g.playRound(1,1);
+g.playRound(1,0);
+g.playRound(2,2);
+
+diagonal right to left X
+g.playRound(0,2);
+g.playRound(0,1);
+g.playRound(1,1);
+g.playRound(1,0);
+g.playRound(2,0);
+
+tie game
+g.playRound(0,0) 
+g.playRound(0,1) 
+g.playRound(0,2) 
+g.playRound(1,0) 
+g.playRound(1,2)
+g.playRound(1,1)
+g.playRound(2,0)
+g.playRound(2,2)
+g.playRound(2,1)
