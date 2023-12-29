@@ -84,6 +84,7 @@ function GameController(
     [board.board[0][0], board.board[1][1], board.board[2][2]],
     [board.board[0][2], board.board[1][1], board.board[2][0]],
   ];
+  let counter = 0;
 
   const players = [
     {
@@ -132,6 +133,8 @@ function GameController(
   };
 
   const playRound = (row, column) => {
+    counter += 1;
+
     //check if the console input cell is valid
     if (board.isCellValid(row, column) == false) {
       console.log("Invalid input, please try again");
@@ -159,8 +162,11 @@ function GameController(
       }'s token into row: ${row} & column: ${column}...`
     );
 
-    /*  This is where we would check for a winner and handle that logic,
-          such as a win message. */
+    if (counter == 9) {
+      board.printBoard();
+      console.log("TIE MATCH");
+      return;
+    }
 
     // Switch player turn
     switchPlayerTurn();
