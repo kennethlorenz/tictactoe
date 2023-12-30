@@ -12,6 +12,9 @@ html {
   padding: 0;
 }
 
+:root {
+  --border: 1px solid white;
+}
 body {
   color: white;
   background: black;
@@ -30,19 +33,20 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 4rem;
 }
 h2 {
   font-size: 6rem;
 }
 
 button {
-  width: 20rem;
+  width: 30rem;
   padding: 2rem;
   font-size: 3rem;
   border-radius: 1rem;
   border: unset;
   cursor: pointer;
+  font-weight: bold;
 }
 
 button:hover {
@@ -51,4 +55,40 @@ button:hover {
 
 button:active {
   background-color: gray;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(20rem, 1fr));
+}
+
+.cell {
+  padding: 8rem;
+}
+
+.cell.empty {
+  cursor: pointer;
+}
+
+.cell.empty:hover {
+  background: red;
+}
+
+.board .cell:nth-child(1),
+.board .cell:nth-child(3),
+.board .cell:nth-child(4),
+.board .cell:nth-child(6) {
+  border-bottom: var(--border);
+}
+
+.board .cell:nth-child(2),
+.board .cell:nth-child(5) {
+  border-left: var(--border);
+  border-right: var(--border);
+  border-bottom: var(--border);
+}
+
+.board .cell:nth-child(8) {
+  border-left: var(--border);
+  border-right: var(--border);
 }
