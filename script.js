@@ -1,14 +1,18 @@
 function Gameboard() {
   const rows = 3;
   const columns = 3;
-  const board = [];
-  for (let i = 0; i < rows; i++) {
-    board[i] = [];
-    for (let j = 0; j < columns; j++) {
-      board[i].push(Cell());
-    }
-  }
+  let board = [];
 
+  const createBoard = () => {
+    for (let i = 0; i < rows; i++) {
+      board[i] = [];
+      for (let j = 0; j < columns; j++) {
+        board[i].push(Cell());
+      }
+    }
+  };
+
+  createBoard();
   const getBoard = () => board;
 
   const isCellValid = (row, column) => {
@@ -39,6 +43,11 @@ function Gameboard() {
     console.log(boardWithCellValues);
   };
 
+  const resetBoard = () => {
+    board = [];
+    createBoard();
+  };
+
   return {
     getBoard,
     updateGameBoard,
@@ -46,6 +55,7 @@ function Gameboard() {
     isCellValid,
     isCellEmpty,
     board,
+    resetBoard,
   };
 }
 
@@ -122,14 +132,13 @@ function GameController(
   };
 
   const winnerFound = () => {
-    let hasAWinner = false;
     if (
       checkWinningCombination("X").length == 1 ||
       checkWinningCombination("O").length == 1
     ) {
-      hasAWinner = true;
+      return true;
     }
-    return hasAWinner;
+    return false;
   };
 
   const playRound = (row, column) => {
@@ -151,6 +160,7 @@ function GameController(
     board.updateGameBoard(row, column, getActivePlayer().token);
     if (winnerFound() == true) {
       board.printBoard();
+      board.resetBoard();
       console.log(`${getActivePlayer().name} WON!!!`);
       return;
     }
@@ -181,8 +191,12 @@ function GameController(
   return {
     playRound,
     getActivePlayer,
-    checkWinningCombination,
   };
 }
 
-const g = GameController();
+let g = GameController();
+
+function resetGame() {
+  console.log("NEW GAME!");
+  g = GameController();
+}
