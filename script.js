@@ -201,17 +201,27 @@ function ScreenController() {
   const cells = document.querySelectorAll(".cell.empty");
   let activePlayer = game.getActivePlayer();
   playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
+  let counter = 0;
 
-  const checkWinner = () => {
+  const haveAWinner = () => {
     if (game.winnerFound() == true) {
-      playerTurnDiv.textContent = `${activePlayer.name} won!`;
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const checkTie = () => {
+    if (counter == 9 && haveAWinner() == false) {
+      playerTurnDiv.textContent = "Tie Match!";
       return;
     }
   };
 
   cells.forEach((cell) => {
     const updateCell = () => {
-      if (game.winnerFound() == true) {
+      counter += 1;
+      if (haveAWinner() == true) {
         return;
       }
       let row = cell.dataset.row;
@@ -222,7 +232,11 @@ function ScreenController() {
       activePlayer = game.getActivePlayer();
       playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
       cell.removeEventListener("click", updateCell);
-      checkWinner();
+      checkTie();
+      if (haveAWinner() == true) {
+        playerTurnDiv.textContent = `${activePlayer.name} won!`;
+        return;
+      }
     };
     cell.addEventListener("click", updateCell);
   });
