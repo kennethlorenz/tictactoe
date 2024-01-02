@@ -242,4 +242,14 @@ function ScreenController() {
   });
 }
 
+const restartBtn = document.querySelector(".restart");
+restartBtn.addEventListener("click", () => {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    cell.textContent = "";
+    cell.classList.add("empty");
+  });
+  ScreenController();
+});
+
 ScreenController();
