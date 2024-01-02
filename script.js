@@ -191,6 +191,7 @@ function GameController(
   return {
     playRound,
     getActivePlayer,
+    winnerFound,
   };
 }
 
@@ -201,17 +202,27 @@ function ScreenController() {
   let activePlayer = game.getActivePlayer();
   playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
 
+  const checkWinner = () => {
+    if (game.winnerFound() == true) {
+      playerTurnDiv.textContent = `${activePlayer.name} won!`;
+      return;
+    }
+  };
+
   cells.forEach((cell) => {
     const updateCell = () => {
+      if (game.winnerFound() == true) {
+        return;
+      }
       let row = cell.dataset.row;
       let column = cell.dataset.column;
       cell.classList.remove("empty");
       cell.textContent = `${activePlayer.token}`;
-      console.log(row, column);
       game.playRound(row, column);
       activePlayer = game.getActivePlayer();
       playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
       cell.removeEventListener("click", updateCell);
+      checkWinner();
     };
     cell.addEventListener("click", updateCell);
   });
