@@ -1,4 +1,4 @@
-function Gameboard() {
+function GameBoard() {
   const rows = 3;
   const columns = 3;
   let board = [];
@@ -77,10 +77,10 @@ function Cell() {
 }
 
 function GameController(
-  playerOneName = "Player One",
-  playerTwoName = "Player Two"
+  playerOneName = "Player X",
+  playerTwoName = "Player O"
 ) {
-  const board = Gameboard();
+  const board = GameBoard();
   const winningCombinations = [
     //by rows
     [board.board[0][0], board.board[0][1], board.board[0][2]],
@@ -194,9 +194,27 @@ function GameController(
   };
 }
 
-let g = GameController();
+function ScreenController() {
+  const game = GameController();
+  const playerTurnDiv = document.querySelector(".turn");
+  const cells = document.querySelectorAll(".cell.empty");
+  let activePlayer = game.getActivePlayer();
+  playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
 
-function resetGame() {
-  console.log("NEW GAME!");
-  g = GameController();
+  cells.forEach((cell) => {
+    const updateCell = () => {
+      let row = cell.dataset.row;
+      let column = cell.dataset.column;
+      cell.classList.remove("empty");
+      cell.textContent = `${activePlayer.token}`;
+      console.log(row, column);
+      game.playRound(row, column);
+      activePlayer = game.getActivePlayer();
+      playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
+      cell.removeEventListener("click", updateCell);
+    };
+    cell.addEventListener("click", updateCell);
+  });
 }
+
+ScreenController();
