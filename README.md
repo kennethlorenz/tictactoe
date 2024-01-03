@@ -1,4 +1,4 @@
 # tictactoe
 tictactoe game with html css &amp; js
-&br;
+<br/>
 [Live Demo](https://kennethlorenz.github.io/tictactoe/)
